@@ -1,0 +1,6 @@
+[package]
+name = "bin_with_server_2048"
+version = "0.1.0"
+authors = ["Richard Stewing <richy.sting@gmail.com>"]
+
+[dependencies]
