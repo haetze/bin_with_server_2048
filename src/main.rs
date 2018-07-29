@@ -76,7 +76,14 @@ fn start_game(socket: TcpStream, size: u8) {
 fn print_response(response: String) {
     let lines = response.split(';');
     for l in lines {
-        printw(l);
+        
+        let l = l.to_string();
+        let fields: Vec<&str> =
+            l
+            .trim_matches(|c| c == ']' || c == '[')
+            .split(',')
+            .collect();
+        
         printw("\n");
     }
 }
