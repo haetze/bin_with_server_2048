@@ -13,6 +13,7 @@ use std::env;
 const DEFAULT_PORT: u16 = 4343;
 const DEFAULT_SIZE: u8  = 4;
 
+
 fn main() {
     initscr();
     
@@ -76,14 +77,31 @@ fn start_game(socket: TcpStream, size: u8) {
 fn print_response(response: String) {
     let lines = response.split(';');
     for l in lines {
-        
+        if l == "\n" {
+            continue;
+        }
         let l = l.to_string();
+        
         let fields: Vec<&str> =
             l
             .trim_matches(|c| c == ']' || c == '[')
             .split(',')
             .collect();
-        
+        printw("| ");
+        for field in fields {
+            let mut field_string = String::new();
+            for c in field.chars() {
+                if c.is_digit(10) {
+                    field_string.push(c);
+                }
+            }
+            while field_string.len() < 4 {
+                field_string.push(' ');
+            }
+            printw(&field_string);
+            printw(" | ");
+            
+        }   
         printw("\n");
     }
 }
