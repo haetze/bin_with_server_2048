@@ -87,7 +87,7 @@ fn start_game(socket: TcpStream, size: u8) {
 }
 
 fn print_response(response: String) {
-    printw(response.as_str());
+
     let lines = response.split(';');
     for l in lines {
         if l == "\n" {
