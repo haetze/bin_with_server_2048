@@ -55,7 +55,9 @@ fn start_game(socket: TcpStream, size: u8) {
         clear();
         let mut res = String::new();
         socket.read_line(&mut res);
-        print_response(res);
+        if print_response(res) {
+            break;
+        }
         let mut break_out = false;
         loop {
             let c = getch() as u8 as char;
@@ -86,10 +88,12 @@ fn start_game(socket: TcpStream, size: u8) {
     
 }
 
-fn print_response(response: String) {
-    if response == "Lost" {
+fn print_response(response: String) -> bool {
+    
+    if response == "Lost\n" {
         printw("You lose");
-        return;
+        refresh();
+        return true;
     }
 
     let lines = response.split(';');
@@ -121,4 +125,6 @@ fn print_response(response: String) {
         }   
         printw("\n");
     }
+    
+    return false;
 }
