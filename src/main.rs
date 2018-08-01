@@ -90,10 +90,17 @@ fn start_game(socket: TcpStream, size: u8) {
 
 fn print_response(response: String) -> bool {
     
-    if response == "Lost\n" {
-        printw("You lose");
-        refresh();
-        return true;
+    for l in response.split(" ") {
+        if l == "Lost" {
+            printw("You lose with ");
+        } else if ! l.starts_with("[") {
+            printw(l.trim());
+            printw(" points\n");
+            refresh();
+            return true;
+        } else {
+            break;
+        }
     }
 
     let lines = response.split(';');
