@@ -87,6 +87,10 @@ fn start_game(socket: TcpStream, size: u8) {
 }
 
 fn print_response(response: String) {
+    if response == "Lost" {
+        printw("You lose");
+        return;
+    }
 
     let lines = response.split(';');
     for l in lines {
